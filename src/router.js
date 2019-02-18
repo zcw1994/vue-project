@@ -4,8 +4,8 @@ import VueRouter from 'vue-router'
 import Film from './views/Film.vue'
 import Center from './views/Center.vue'
 import Cinema from './views/Cinema.vue'
-// import Home from './views/Home.vue'
-// import City from './views/City.vue'
+import Home from './views/Home.vue'
+import City from './views/City.vue'
 
 // 使用use 方法 安装这个 vue-router 插件
 Vue.use(VueRouter)
@@ -15,18 +15,37 @@ let router = new VueRouter({
   routes: [
     {
       // localhost:8080/#/films     ->   Film.vus
-      path: '/films', // url 路径
-      component: Film
+      path: '/city', // url 路径
+      component: City
     },
     {
       // localhost:8080/#/cinema     ->   Cinema.vus
-      path: '/cinema', // url 路径
-      component: Cinema
+      path: '/', // url 路径
+      component: Home,
+      children: [
+        {
+          path: 'films',
+          component: Film
+        },
+        {
+          path: '/cinema',
+          component: Cinema
+        },
+        {
+          path: '/center',
+          component: Center
+        },
+        {
+          path: '',
+          redirect: '/films'
+        }
+      ]
+
     },
     {
       // localhost:8080/#/center     ->   Center.vus
-      path: '/center', // url 路径
-      component: Center
+      path: '*', // url 路径
+      redirect: '/'
     }
   ]
 })
