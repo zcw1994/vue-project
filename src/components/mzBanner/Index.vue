@@ -44,7 +44,7 @@ export default {
     }
   },
   created () {
-    // 调用 axios 的 get 方法
+    // 调用 axios 的 get 方法  调用nodejs项目 中数据库给的的接口数据
     axios.get('http://localhost:3000/banner/search', {
       params: {
         pageSize: 10
