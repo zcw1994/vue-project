@@ -13,12 +13,12 @@
             <span>影院</span>
           </router-link>
         </li>
-        <!-- <li class="choose-film">
-          <router-link to='/center'>
+        <li class="choose-film">
+          <router-link to='/detail:123'>
             <i class="iconfont icon-pintuan"></i>
             <span>9.9拼团</span>
           </router-link>
-        </li> -->
+        </li>
         <li class="choose-film">
           <router-link to='/center' active-class="a">
             <i class="iconfont icon-wode"></i>

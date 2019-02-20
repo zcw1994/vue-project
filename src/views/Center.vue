@@ -3,10 +3,13 @@
     <!-- 网页头部 -->
     <header id="myHeader-wrapper">
       <div class="myHeader">
-        <img src="../assets/yhu.jpg" class="actor-like">
-        <div>
-          <a href="javascript:;" class="nick-name">立即登录</a>
-        </div>
+        <router-link to="/manage">
+          <img src="../assets/yhu.jpg" class="actor-like">
+          <div>
+            <span class="nick-name" > {{ name }} </span>
+            <!-- <span class="nick-name" v-else> 立即登录 </span> -->
+          </div>
+        </router-link>
       </div>
     </header>
     <!-- 拼单选择 -->
@@ -23,14 +26,14 @@
     <!-- 用户设置 -->
     <ul class="user-choose">
       <li class="user-set">
-        <a href="javascript:;">
+        <router-link to="/card">
           <img src="../assets/ka.jpg">
           <span class="use-set-lable">卖座卡</span>
           <i class="iconfont icon-gengduo use-set-i"></i>
-        </a>
+        </router-link>
       </li>
       <li class="user-set">
-        <a href="javascript:;">
+        <router-link to="/yue">
           <img src="../assets/yue.jpg">
           <span class="use-set-lable">
             余额
@@ -40,18 +43,28 @@
             </span>
           </span>
           <i class="iconfont icon-gengduo use-set-i"></i>
-        </a>
+        </router-link>
       </li>
       <li class="user-set">
-        <a href="javascript:;">
+        <router-link to="/set">
           <img src="../assets/shezhi.jpg">
           <span class="use-set-lable">设置</span>
           <i class="iconfont icon-gengduo use-set-i"></i>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      name: sessionStorage.getItem('nickname') || '立即登录'
+    }
+  }
+}
+</script>
 
 <style lang="less">
 /* 头部样式 */
@@ -66,10 +79,13 @@
     text-align: center;
     padding-left: 22px;
     padding-top: 64px;
-    display: flex;
+
     align-items: center;
     color: #ffffff;
-    .actor-like {
+    a{
+      display: flex;
+      align-items: center;
+      .actor-like {
       width: 63px;
       height: 63px;
       border-radius: 35px;
@@ -80,6 +96,8 @@
       font-size: 16px;
       color: #ffffff;
     }
+    }
+
   }
 }
 /* 订单选择 */

@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 头部 -->
-    <a class="iconJt" href="javascript:;">深圳
+    <router-link class="iconJt" to="/city">深圳
       <i class="iconfont icon-xiajiantou"></i>
-    </a>
+    </router-link>
     <div class="swiper-container header-play">
       <div class="swiper-wrapper">
         <a href="javascript:;" class="swiper-slide" v-for="item in bannerList" :key="item._id">
