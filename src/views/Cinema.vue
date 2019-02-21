@@ -302,7 +302,7 @@
     /* 头部右侧 */
     .header-right{
       float: right;
-      display: inline-block;
+      display: block;
       width: 15%;
       margin-right: 15px;
       text-align: center;

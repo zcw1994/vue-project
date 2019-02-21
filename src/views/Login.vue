@@ -134,48 +134,6 @@ export default {
 .container .info span .fa {
   color: #EF3B3A;
 }
-
-/* 验证admin */
-#adminHint{
-  color: #cccccc;
-  margin-top: 0px;
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-.shake_effect {
-  -webkit-animation-name: shake;
-  animation-name: shake;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-}
- @-webkit-keyframes shake {
-   from, to {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
- 10%, 30%, 50%, 70%, 90% {
-   -webkit-transform: translate3d(-10px, 0, 0);
-  transform: translate3d(-10px, 0, 0);
-}
- 20%, 40%, 60%, 80% {
-   -webkit-transform: translate3d(10px, 0, 0);
-   transform: translate3d(10px, 0, 0);
-   }
-}
- @keyframes shake {
-   from, to {
-     -webkit-transform: translate3d(0, 0, 0);
-     transform: translate3d(0, 0, 0);
-     }
- 10%, 30%, 50%, 70%, 90% {
-   -webkit-transform: translate3d(-10px, 0, 0);
-   transform: translate3d(-10px, 0, 0);
-   }
- 20%, 40%, 60%, 80% {
-   -webkit-transform: translate3d(10px, 0, 0);
-   transform: translate3d(10px, 0, 0);
-   }
-}
 p.center {
   color: #fff;
   font-family: "Microsoft YaHei";

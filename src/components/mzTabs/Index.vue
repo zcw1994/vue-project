@@ -1,7 +1,7 @@
 <template>
 
   <div id="tabs-wrapper">
-    <div class="tabs">
+    <div class="tabs" ref="box">
       <ul class="tabs-nav">
         <router-link to="/films/nowPlaying" tag="li"  active-class="tabs-active">
           <span>正在热映</span>
@@ -19,6 +19,16 @@
   </div>
 
 </template>
+
+<script>
+export default {
+
+  mounted () {
+    console.log(this.$refs.box.offsetTop)
+  }
+
+}
+</script>
 
 <style lang="less">
   /* 热映区 */
@@ -66,7 +76,3 @@
   }
 }
 </style>
-<script>
-export default {
-}
-</script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 头部 -->
-    <router-link class="iconJt" to="/city">深圳
+    <router-link class="iconJt" to="/city"> <span>{{ cityName }}</span>
       <i class="iconfont icon-xiajiantou"></i>
     </router-link>
     <div class="swiper-container header-play">
@@ -22,7 +22,8 @@ import axios from 'axios'
 export default {
   data: function () {
     return {
-      bannerList: []
+      bannerList: [],
+      cityName: sessionStorage.getItem('cityName')
     }
   },
   methods: {
@@ -71,7 +72,7 @@ export default {
 <style lang="less">
   /* 地点地位 */
 .iconJt{
-  display: inline-block;
+  display: flex;
   position: absolute;
   top: 20px;
   left: 10px;
@@ -84,9 +85,14 @@ export default {
   border-radius: 15px;
   padding: 0 5px;
   text-align: center;
-
+  span{
+    display: inline-block;
+    width: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   i{
-    margin-left: 5px;
     font-size: 10px
   }
 }

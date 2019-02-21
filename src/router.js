@@ -5,7 +5,7 @@ import Film from './views/Film.vue'
 import Center from './views/Center.vue'
 import Cinema from './views/Cinema.vue'
 import Home from './views/Home.vue'
-import City from './views/City.vue'
+import City from './views/City/index.vue'
 import Detail from './views/Detail.vue'
 import NowPlaying from './views/NowPlaying.vue'
 import ComingSoon from './views/ComingSoon.vue'
@@ -76,6 +76,14 @@ let router = new VueRouter({
       path: '/', // url 路径
       component: Home,
       // component: () => import('./views/Home.vue'),
+      beforeEnter (to, from, next) {
+        if (!sessionStorage.getItem('cityName')) {
+          console.log(111);
+          next('/city')
+        } else {
+          next()
+        }
+      },
       children: [
         {
           path: 'films',
