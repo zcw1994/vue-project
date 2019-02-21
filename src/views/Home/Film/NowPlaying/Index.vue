@@ -41,7 +41,7 @@ export default {
   },
   created () {
     axios.get('http://localhost:3000/films/search').then(res => {
-      console.log(res);
+      // console.log(res);
       let data = res.data;
       this.bannerList = data.data;
     })

@@ -4,7 +4,7 @@
     <header id="header-wrapper">
       <div class="header">
         <div class="header-left">
-          <span>深圳</span>
+          <span> {{ curCityName }} </span>
           <i class="iconfont icon-xiajiantou"></i>
         </div>
         <div class="header-title">
@@ -259,6 +259,16 @@
   </div>
 
 </template>
+
+<script>
+export default {
+  computed: {
+    curCityName () {
+      return this.$store.state.curCityName;
+    }
+  }
+}
+</script>
 
 <style lang="less">
 

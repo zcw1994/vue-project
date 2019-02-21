@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- 头部 -->
-    <router-link class="iconJt" to="/city"> <span>{{ cityName }}</span>
-      <i class="iconfont icon-xiajiantou"></i>
-    </router-link>
     <div class="swiper-container header-play">
       <div class="swiper-wrapper">
         <a href="javascript:;" class="swiper-slide" v-for="item in bannerList" :key="item._id">
@@ -51,7 +47,7 @@ export default {
         pageSize: 10
       }
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       let data = res.data;
 
       this.bannerList = data.data
@@ -70,32 +66,7 @@ export default {
 </script>
 
 <style lang="less">
-  /* 地点地位 */
-.iconJt{
-  display: flex;
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  height: 30px;
-  width: 50px;
-  background: rgba(0,0,0,.2);
-  color: #ffffff;
-  line-height: 30px;
-  z-index: 9999;
-  border-radius: 15px;
-  padding: 0 5px;
-  text-align: center;
-  span{
-    display: inline-block;
-    width: 35px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  i{
-    font-size: 10px
-  }
-}
+
 /* banner轮播 */
 .header-play{
   width: 100%;
@@ -116,7 +87,6 @@ export default {
       margin: 0 3px;
     }
   }
-
 }
 
 </style>

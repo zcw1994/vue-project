@@ -1,7 +1,7 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from './store/index'
 /* 配合后置守卫的数据读取进度条的引入 */
 import ngprogress from 'nprogress'
 
@@ -61,6 +61,13 @@ let router = new VueRouter({
         {
           path: 'films',
           component: () => import('./views/Home/Film/Index.vue'),
+          beforeEnter (to, from, next) {
+            if (store.state.curCityName === '') {
+              next('/city')
+            } else {
+              next()
+            }
+          },
           children: [
             {
               name: 'nowPlaying',

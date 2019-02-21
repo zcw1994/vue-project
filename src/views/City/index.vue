@@ -1,6 +1,5 @@
 // 一级路由
 <template>
-
   <div class="layout-body">
     <div class="body-header">
       <div class="bodyHeader-left">
@@ -9,8 +8,7 @@
         </router-link>
       </div>
       <div class="bodyHeader-right">
-
-        <span class="bodyTitle">当前城市 - </span>
+        <span class="bodyTitle">当前城市 -{{ curCityName }}</span>
       </div>
     </div>
     <div class="bodySearch">
@@ -24,52 +22,46 @@
             <div class="city-index-title">GPS定位你所在的城市</div>
             <ul class="city-index-detail clearfix">
               <li class="city-item-gprs">
-                <div class="city-item-text">定位失败</div>
+                <div class="city-item-text">定位失败 </div>
               </li>
             </ul>
           </div>
           <div class="hot-city">
             <div class="city-index-title">热门城市</div>
             <ul class="city-index-detail clearfix">
-              <li class="city-item-gprs">
-                <div class="city-item-text">北京</div>
-              </li>
-              <li class="city-item-gprs">
-                <div class="city-item-text">上海</div>
-              </li>
-              <li class="city-item-gprs">
-                <div class="city-item-text">广州</div>
-              </li>
-              <li class="city-item-gprs">
-                <div class="city-item-text">深圳</div>
+              <li class="city-item-gprs"
+                v-for="(item, index) in filterHotCity"
+                :key="index"
+                @click="chgCityName(item)"
+                >
+                <div class="city-item-text"> {{ item }} </div>
               </li>
             </ul>
           </div>
         </div>
-        <li class="main-indexsection"
+        <li
+          class="main-indexsection"
           v-for="(item, index) in filterCityData"
           :key="index"
           :id="item.py"
           :ref="item.py"
-          >
-          <p class="main-indexsection-index"> {{item.py}} </p>
+        >
+          <p class="main-indexsection-index">{{item.py}}</p>
           <ul>
-            <li class="city-item-detail-white"
-              v-for="city in item.list"
-              :key="city.cityId"
-              >
-              <div class="city-item-text"> {{ city.name }} </div>
+            <li class="city-item-detail-white" v-for="city in item.list" :key="city.cityId">
+              <div class="city-item-text" @click="chgCityName(city.name)">{{ city.name }}</div>
             </li>
           </ul>
         </li>
       </ul>
       <div class="mint-indexlist-nav">
         <ul class="mint-indexlist-navlist">
-          <li class="mint-indexlist-navitem"
+          <li
+            class="mint-indexlist-navitem"
             v-for="(item, index) in filterLetters"
             :key="index"
             @click="submitPy(item)"
-            > {{ item }} </li>
+          >{{ item }}</li>
         </ul>
       </div>
     </div>
@@ -77,93 +69,104 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { mapState, mapGetters } from 'vuex';
+
 export default {
-  data () {
-    return {
-      // 城市数据列表
-      cityData: []
-    }
-  },
+
+  // computed: {
+
+  // cityData () {
+  //   return this.$store.state.cityData;
+  // },
+  // curCityName () {
+  //   return this.$store.state.curCityName;
+  // },
+  // filterCityData () {
+  //   return this.$store.getters.filterCityDate
+  // },
+  // filterLetters () {
+  //   return this.$store.getters.filterLetters
+  // }
+
+  // filterCityData () {
+  //   let hash = {}; // 用来筛选 数据是否存在
+  //   let i = 0; // 一个变量
+  //   let res = []; // 实际 存放数据的数组
+
+  //   this.cityData.forEach(item => {
+  //     // 1.得到当前循环的首字母
+  //     let firstLetter = item.pinyin.substr(0, 1).toUpperCase();
+  //     // 2 判断该首字母是否第一次出现
+
+  //     if (hash[firstLetter]) {
+  //       // 存在即已经出现过了
+  //       var index = hash[firstLetter] - 1;
+  //       res[index].list.push(item); // 存在了就存放到数组中该字母对象的list数组中
+  //     } else {
+  //       // 不存在
+  //       hash[firstLetter] = ++i;// 如果不写++i,而写i++的话，第一次一个字母没出现过，走到else判断，然后这个字母的值为0，此时这个字母已经出现并存放到hash对象中，下次继续出现时，走到if判断中，hash[这个字母] = 0，还是false，又判断不存在，所以是不 ok的
+  //       let obj = {};
+  //       obj.py = firstLetter;// 定义一个首字母的键
+  //       obj.list = [item];// 给这个对象定义一个数组，存放这个第一次出现的item数据
+  //       res.push(obj)// 再将这个对象添加到数组中
+  //     }
+  //   });
+  //   let temp = res.sort((a, b) => { // 对得到的数组进行再次排序，按照ABCD 的升序进行 ，因此sort 里面要用到 这个字母的 ASCILL值
+  //     return a.py.charCodeAt() - b.py.charCodeAt();
+  //   })
+  //   return temp;
+  // },
+  // filterLetters () {
+  //   return this.filterCityData.map(item => {
+  //     return item.py
+  //   })
+  // }
+
+  // },
   computed: {
-    /**
-     * 处理之后的城市数据
-     *
-     */
-    filterCityData () {
-      let hash = {}; // 用来筛选 数据是否存在
-      let i = 0; // 一个变量
-      let res = []; // 实际 存放数据的数组
-
-      this.cityData.forEach(item => {
-        // 1.得到当前循环的首字母
-        let firstLetter = item.pinyin.substr(0, 1).toUpperCase();
-        // 2 判断该首字母是否第一次出现
-
-        if (hash[firstLetter]) {
-          // 存在即已经出现过了
-          var index = hash[firstLetter] - 1;
-          res[index].list.push(item); // 存在了就存放到数组中该字母对象的list数组中
-        } else {
-          // 不存在
-          hash[firstLetter] = ++i;// 如果不写++i,而写i++的话，第一次一个字母没出现过，走到else判断，然后这个字母的值为0，此时这个字母已经出现并存放到hash对象中，下次继续出现时，走到if判断中，hash[这个字母] = 0，还是false，又判断不存在，所以是不 ok的
-          let obj = {};
-          obj.py = firstLetter;// 定义一个首字母的键
-          obj.list = [item];// 给这个对象定义一个数组，存放这个第一次出现的item数据
-          res.push(obj)// 再将这个对象添加到数组中
-        }
-      });
-      let temp = res.sort((a, b) => { // 对得到的数组进行再次排序，按照ABCD 的升序进行 ，因此sort 里面要用到 这个字母的 ASCILL值
-        return a.py.charCodeAt() - b.py.charCodeAt();
-      })
-      return temp;
-    },
-    filterLetters () {
-      return this.filterCityData.map(item => {
-        return item.py
-      })
-    }
+    // 辅助函数
+    ...mapState(['cityData', 'curCityName']),
+    ...mapGetters(['filterCityData', 'filterLetters', 'filterHotCity'])
   },
   methods: {
-    // changeCityName (event) {
-    //   var el = event.currentTarget;
-    //   console.log(el.innerText)
-    //   sessionStorage.setItem('cityName', el.innerText)
-    //   this.$router.push('/');
-    // },
-    // changeTop (event) {
-    //   var el = event.currentTarget;
-    //   console.log(el.innerText)
-    // }
     getCityData () {
       axios.get('./json/city.json').then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         let data = res.data;
         if (data.status === 0) {
-          this.cityData = data.data.cities;
+          // this.cityData = data.data.cities;
+          this.$store.commit('chgCityData', data);
         } else {
-          alert(data.msg)
+          alert(data.msg);
         }
-      })
+      });
     },
     /**
      * 页面右侧的字母导航点击
      * @param {String} py 点击的首字母
      * @return undefine
-      */
+     */
     submitPy (py) {
       // 1.获得匹配 py 字母的元素的offsetTop  高度
       // console.log(document.getElementById(py));
       // this.$refs[py]
-      document.documentElement.scrollTop = document.getElementById(py).offsetTop
+      document.documentElement.scrollTop = document.getElementById(
+        py
+      ).offsetTop;
+      alert(py)
+    },
+    chgCityName (city) {
+      this.$store.commit('chgCityName', city);
+      this.$router.push('/')
     }
   },
   created () {
     this.getCityData();
   }
-}
+};
 </script>
 
 <style lang="less">
-  @import url('./index.less');
+@import url("./index.less");
 </style>
