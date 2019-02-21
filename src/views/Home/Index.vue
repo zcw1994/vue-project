@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Footer from '../components/mzFooter/Index'
+import Footer from '@/components/mzFooter/Index'
 
 export default {
   components: {

@@ -1,19 +1,7 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Film from './views/Film.vue'
-import Center from './views/Center.vue'
-import Cinema from './views/Cinema.vue'
-import Home from './views/Home.vue'
-import City from './views/City/index.vue'
-import Detail from './views/Detail.vue'
-import NowPlaying from './views/NowPlaying.vue'
-import ComingSoon from './views/ComingSoon.vue'
-import Card from './views/Card.vue'
-import Yue from './views/Yue.vue'
-import Set from './views/Set.vue'
-import Login from './views/Login.vue'
-import Manage from './views/Manage.vue'
+
 /* 配合后置守卫的数据读取进度条的引入 */
 import ngprogress from 'nprogress'
 
@@ -29,25 +17,22 @@ let router = new VueRouter({
       // 城市页面
       // localhost:8080/#/city    ->   City.vus
       path: '/city', // url 路径
-      component: City
-      // component: () => import('./views/City.vue')webpackChunkName:''
+      component: () => import('./views/City/index.vue')
     },
     {
       // 详情页
       path: '/detail/:id',
-      component: Detail
-      // component: () => import('./views/Detail.vue')
+      component: () => import('./views/Detail/Index.vue')
     },
     {
       // 个人管理页面
       path: '/manage',
-      component: Manage
+      component: () => import('./views/Manage/Index.vue')
     },
     {
       // 卖座卡页面
       path: '/card',
-      component: Card
-      // component: () => import('./views/City.vue')
+      component: () => import('./views/City/index.vue')
       // beforeEnter (to, from, next) {
       //   next(false);
       // }
@@ -55,52 +40,37 @@ let router = new VueRouter({
     {
       // 余额页面
       path: '/yue',
-      component: Yue
-      // component: () => import('./views/Yue.vue')
+      component: () => import('./views/Yue/Index.vue')
     },
     {
       // 设置页面
       path: '/set',
-      component: Set
-      // component: () => import('./views/Set.vue')
+      component: () => import('./views/Set/Index.vue')
     },
     {
       // 登录页面
       path: '/login',
-      component: Login
-      // component: () => import('./views/Login.vue')
+      component: () => import('./views/Login/Index.vue')
     },
     {
       // 影片首页页面
       // localhost:8080/#/     ->   Film.vue
       path: '/', // url 路径
-      component: Home,
-      // component: () => import('./views/Home.vue'),
-      beforeEnter (to, from, next) {
-        if (!sessionStorage.getItem('cityName')) {
-          console.log(111);
-          next('/city')
-        } else {
-          next()
-        }
-      },
+      component: () => import('./views/Home/Index.vue'),
       children: [
         {
           path: 'films',
-          component: Film,
-          // component: () => import('./views/Film.vue'),
+          component: () => import('./views/Home/Film/Index.vue'),
           children: [
             {
               name: 'nowPlaying',
               path: 'nowPlaying',
-              component: NowPlaying
-              // component: () => import('./views/NowPlaying.vue')
+              component: () => import('./views/Home/Film/NowPlaying/Index.vue')
             },
             {
               name: 'comingSoon',
               path: 'comingSoon',
-              component: ComingSoon
-              // component: () => import('./views/ComingSoon.vue')
+              component: () => import('./views/Home/Film/ComingSoon/Index.vue')
             },
             {
               path: '',
@@ -110,13 +80,11 @@ let router = new VueRouter({
         },
         {
           path: 'cinema',
-          component: Cinema
-          // component: () => import('./views/Cinema.vue')
+          component: () => import('./views/Home/Cinema/Index.vue')
         },
         {
           path: 'center',
-          component: Center
-          // component: () => import('./views/Center.vue')
+          component: () => import('./views/Home/Center/Index.vue')
         },
         {
           path: '',

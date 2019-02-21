@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import mzBanner from '../components/mzBanner/Index'
-import mzTabs from '../components/mzTabs/Index'
+import mzBanner from '@/components/mzBanner/Index'
+import mzTabs from '@/components/mzTabs/Index'
 export default {
   components: {
     mzBanner,

@@ -4,7 +4,7 @@
     <header id="myHeader-wrapper">
       <div class="myHeader">
         <router-link to="/manage">
-          <img src="../assets/yhu.jpg" class="actor-like">
+          <img src="@/assets/yhu.jpg" class="actor-like">
           <div>
             <span class="nick-name" > {{ name }} </span>
             <!-- <span class="nick-name" v-else> 立即登录 </span> -->
@@ -27,14 +27,14 @@
     <ul class="user-choose">
       <li class="user-set">
         <router-link to="/card">
-          <img src="../assets/ka.jpg">
+          <img src="@/assets/ka.jpg">
           <span class="use-set-lable">卖座卡</span>
           <i class="iconfont icon-gengduo use-set-i"></i>
         </router-link>
       </li>
       <li class="user-set">
         <router-link to="/yue">
-          <img src="../assets/yue.jpg">
+          <img src="@/assets/yue.jpg">
           <span class="use-set-lable">
             余额
             <span class="user-set-value">
@@ -47,7 +47,7 @@
       </li>
       <li class="user-set">
         <router-link to="/set">
-          <img src="../assets/shezhi.jpg">
+          <img src="@/assets/shezhi.jpg">
           <span class="use-set-lable">设置</span>
           <i class="iconfont icon-gengduo use-set-i"></i>
         </router-link>
@@ -70,11 +70,11 @@ export default {
 /* 头部样式 */
 #myHeader-wrapper {
   height: 160px;
-  background: url("../assets/bg.6837f67.png") no-repeat;
+  background: url("../../../assets/bg.6837f67.png") no-repeat;
   background-size: cover;
   .myHeader {
     height: 160px;
-    background: url("../assets/bg.6837f67.png") no-repeat;
+    background: url("../../../assets/bg.6837f67.png") no-repeat;
     background-size: cover;
     text-align: center;
     padding-left: 22px;
