@@ -49,7 +49,7 @@
           <p class="main-indexsection-index">{{item.py}}</p>
           <ul>
             <li class="city-item-detail-white" v-for="city in item.list" :key="city.cityId">
-              <div class="city-item-text" @click="chgCityName(city.name)">{{ city.name }}</div>
+              <div class="city-item-text" @click="changeCity(city.name)">{{ city.name }}</div>
             </li>
           </ul>
         </li>
@@ -69,8 +69,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
 
@@ -127,21 +126,23 @@ export default {
   computed: {
     // 辅助函数
     ...mapState(['cityData', 'curCityName']),
+    // ...mapState('ma', {
+    //   'maName': (state) => state.name
+    // }),
     ...mapGetters(['filterCityData', 'filterLetters', 'filterHotCity'])
+    // maName () {
+    //   return this.$store.state.ma.name;
+    // }
   },
   methods: {
-    getCityData () {
-      axios.get('./json/city.json').then(res => {
-        // console.log(res.data);
-        let data = res.data;
-        if (data.status === 0) {
-          // this.cityData = data.data.cities;
-          this.$store.commit('chgCityData', data);
-        } else {
-          alert(data.msg);
-        }
-      });
-    },
+    // mapMUtation这个辅助函数 定义好，会给组件一个方法，方法名即为 定义好的 mutation
+    ...mapMutations([
+      'chgCityName',
+      'chgCityData'
+    ]),
+    ...mapActions([
+      'getCityData'
+    ]),
     /**
      * 页面右侧的字母导航点击
      * @param {String} py 点击的首字母
@@ -156,12 +157,15 @@ export default {
       ).offsetTop;
       alert(py)
     },
-    chgCityName (city) {
-      this.$store.commit('chgCityName', city);
-      this.$router.push('/')
+    changeCity (city) {
+      // this.$store.commit('chgCityName', city);
+      this.chgCityName(city);
+      this.$router.back();
     }
   },
   created () {
+    // this.getCityData();
+    // this.$store.dispatch('getCityData');
     this.getCityData();
   }
 };

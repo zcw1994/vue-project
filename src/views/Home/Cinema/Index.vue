@@ -3,16 +3,16 @@
     <!-- 影院头部 -->
     <header id="header-wrapper">
       <div class="header">
-        <div class="header-left">
+        <router-link tag="div" to="/city" class="header-left">
           <span> {{ curCityName }} </span>
           <i class="iconfont icon-xiajiantou"></i>
-        </div>
+        </router-link>
         <div class="header-title">
           影院
         </div>
-        <a class="header-right">
+        <router-link to="/search" class="header-right">
           <i class="iconfont icon-search"></i>
-        </a>
+        </router-link>
       </div>
     </header>
     <!-- 影院地址选择 -->
@@ -261,11 +261,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   computed: {
-    curCityName () {
-      return this.$store.state.curCityName;
-    }
+    ...mapState([
+      'curCityName'
+    ])
   }
 }
 </script>
@@ -278,8 +279,8 @@ export default {
   height: 44PX;
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  width: 3.75rem;
+  margin: 0 auto;
   z-index: 1000;
 
   .header{
@@ -304,6 +305,7 @@ export default {
         display: inline-block;
         max-width: 30px;
         overflow: hidden;
+        font-size: 14px;
         text-overflow: ellipsis;
         white-space: nowrap;
         padding-right: 5px;
@@ -334,11 +336,11 @@ export default {
 /* 影院地址选择 */
 #cinemas-tag-wrapper{
   height: 50PX;
+  width: 3.75rem;
   background: #ffffff;
+  margin: 0 auto;
   position: fixed;
   top: 44PX;
-  right: 0;
-  width: 100%;
   z-index: 1000;
 
   .cinemas-tag{
@@ -349,7 +351,7 @@ export default {
       height: 50PX;
       line-height: 50PX;
       color: #191a1b;
-      font-size: 14PX;
+      font-size: 16PX;
       i{
         font-size: 10PX;
         margin-left: 4PX
@@ -384,11 +386,11 @@ export default {
         }
         .cinema-name{
           color: #191a1b;
-          font-size: 16PX;
+          font-size: 18PX;
         }
         .cinema-address{
           color: #797d82;
-          font-size: 12PX;
+          font-size: 14PX;
           margin-top: 5PX;
         }
       }
@@ -403,14 +405,14 @@ export default {
           }
         }
         .upon{
-          font-size: 10PX;
+          font-size: 12PX;
           color: #ff5f16;
         }
         .cinema-gpsAddress{
           display: block;
-          font-size: 12PX;
+          font-size: 14PX;
           color: #797d82;
-          margin-top: 5PXm;
+          margin-top: 5PX;
         }
       }
 

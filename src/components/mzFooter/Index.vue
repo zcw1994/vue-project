@@ -52,16 +52,14 @@
   .footer-wrapper{
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 3.75rem;
+    margin: 0 auto;
     height: 46px;
     z-index: 666;
     .film-footer{
-      position: fixed;
-      bottom: 0;
+      background: #ffffff;
       width: 100%;
       display: flex;
-      z-index: 666;
-      background: #ffffff;
       .choose-film{
         flex: 1;
         text-align: center;

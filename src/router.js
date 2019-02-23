@@ -1,7 +1,6 @@
-
+// 路由 配置文件
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from './store/index'
 /* 配合后置守卫的数据读取进度条的引入 */
 import ngprogress from 'nprogress'
 
@@ -18,6 +17,7 @@ let router = new VueRouter({
       // localhost:8080/#/city    ->   City.vus
       path: '/city', // url 路径
       component: () => import('./views/City/index.vue')
+
     },
     {
       // 详情页
@@ -53,6 +53,11 @@ let router = new VueRouter({
       component: () => import('./views/Login/Index.vue')
     },
     {
+      // 搜索影院页面
+      path: '/search',
+      component: () => import('./views/Search/Index.vue')
+    },
+    {
       // 影片首页页面
       // localhost:8080/#/     ->   Film.vue
       path: '/', // url 路径
@@ -61,13 +66,13 @@ let router = new VueRouter({
         {
           path: 'films',
           component: () => import('./views/Home/Film/Index.vue'),
-          beforeEnter (to, from, next) {
-            if (store.state.curCityName === '') {
-              next('/city')
-            } else {
-              next()
-            }
-          },
+          // beforeEnter (to, from, next) {
+          //   if (store.state.curCityName === '') {
+          //     next('/city')
+          //   } else {
+          //     next()
+          //   }
+          // },
           children: [
             {
               name: 'nowPlaying',

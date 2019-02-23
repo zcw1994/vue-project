@@ -1,15 +1,15 @@
 /* 影院头部 */
 .layout-body {
   padding-top: 100px;
-
+  position: relative;
   .body-header {
     height: 44px;
     display: flex;
     background: #ffffff;
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    width: 3.75rem;
+    margin: 0 auto;
     z-index: 300;
     .bodyHeader-left {
       height: 44px;
@@ -17,9 +17,13 @@
       width: 50px;
       text-align: left;
       padding-left: 10px;
-      i {
-        font-size: 20px;
+      a{
+        display: block;
+        i {
+          font-size: 20px;
+        }
       }
+
     }
     .bodyHeader-right {
       height: 44px;
@@ -37,10 +41,11 @@
     height: 50px;
     padding: 10px 15px;
     background: #f4f4f4;
-    width: 100%;
+    width: 3.75rem;
     position: fixed;
     top: 44px;
     z-index: 2000;
+    box-sizing: border-box;
     .searchInput {
       height: 30px;
       width: 100%;
@@ -62,10 +67,9 @@
   .main-cityList {
     background: #ffffff;
     position: relative;
+    display: flex;
     .main-indexList {
-      width: 95%;
       overflow-y: auto;
-
       /* 推荐城市 */
       .reccommend-city {
         background: #ffffff;
@@ -108,6 +112,7 @@
         color: #797d82;
         padding-left: 15px;
         height: 30px;
+        width: 100%;
         box-sizing: border-box;
         line-height: 30px;
       }
@@ -141,25 +146,24 @@
   }
   /* 城市首字母导航 */
   .mint-indexlist-nav {
-    // right: 0;
+    flex: 1;
     position: fixed;
-    top: 0;
-    right: 0;
+    margin-left: 370px;
     z-index: 1999;
     width: 18px;
     height: 100%;
-    margin-top: 94px;
+    background: #ffffff;
     .mint-indexlist-navlist {
       display: flex;
       flex-flow: column;
-      height: 100%;
-      justify-content: center;
       align-items: center;
+      height: 100%;
+      padding-top: 50px;
       .mint-indexlist-navitem {
         font-size: 12px;
         padding: 0 6px;
         color: #191a1b;
-        margin: 2px 0;
+        margin: 3px 0;
       }
     }
   }

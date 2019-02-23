@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="filmHeader">
     <!-- 头部 -->
     <router-link class="iconJt" to="/city"> <span> {{ curCityName }} </span>
       <i class="iconfont icon-xiajiantou"></i>
@@ -23,10 +23,14 @@ export default {
     mzBanner,
     mzTabs
   }
+
 }
 </script>
 
 <style lang="less">
+.filmHeader{
+  position: relative;
+}
    /* 地点地位 */
 .iconJt{
   display: flex;

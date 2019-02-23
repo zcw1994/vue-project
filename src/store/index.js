@@ -2,7 +2,9 @@
 
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import axios from 'axios'
+import a from './modules/a'
+import b from './modules/b'
 Vue.use(Vuex);
 
 // 创建 vuex 的实例仓库
@@ -89,7 +91,36 @@ let store = new Vuex.Store({
     chgCityData (state, payload) {
       state.cityData = payload.data.cities
     }
+  },
 
+  actions: {
+    /* 调用百度 API, 获取当前定位的城市名称 */
+
+    getCityName ({ commit }) {
+      /* eslint-disable   */
+      var myCity = new BMap.LocalCity();
+      myCity.get(result => {
+        commit('chgCityName', result.name);
+      })
+    },
+    /* eslint-enable   */
+    getCityData ({ commit, state, getters }) {
+      axios.get('./json/city.json').then(res => {
+        // console.log(res.data);
+        let data = res.data;
+        if (data.status === 0) {
+          // this.cityData = data.data.cities;
+          // this.$store.commit('chgCityData', data);
+          commit('chgCityData', data);
+        } else {
+          alert(data.msg);
+        }
+      });
+    }
+  },
+  modules: {
+    ma: a,
+    mb: b
   }
 })
 
