@@ -335,12 +335,12 @@ export default {
 
 /* 影院地址选择 */
 #cinemas-tag-wrapper{
-  height: 50PX;
+  height: 50px;
   width: 3.75rem;
   background: #ffffff;
   margin: 0 auto;
   position: fixed;
-  top: 44PX;
+  top: 44px;
   z-index: 1000;
 
   .cinemas-tag{
@@ -348,13 +348,13 @@ export default {
     display: flex;
     label{
       width: 50%;
-      height: 50PX;
-      line-height: 50PX;
+      height: 50px;
+      line-height: 50px;
       color: #191a1b;
-      font-size: 16PX;
+      font-size: 14px;
       i{
-        font-size: 10PX;
-        margin-left: 4PX
+        font-size: 10px;
+        margin-left: 4px
       }
     }
   }
@@ -362,12 +362,12 @@ export default {
 /* 影院详情列表 */
 #cinemas-list-wrapper{
   background: #ffffff;
-  padding-top: 94PX;
+  padding-top: 94px;
 
   .cinema-list-item{
-    height: 45PX;
+    height: 45px;
     position: relative;
-    padding: 15PX;
+    padding: 15px;
 
     a{
       display: flex;
@@ -377,7 +377,7 @@ export default {
       .cinema-ifo-lf{
         display: flex;
         flex-flow: column;
-        padding-right: 15PX;
+        padding-right: 15px;
         width: 80%;
         span{
           overflow: hidden;
@@ -386,33 +386,33 @@ export default {
         }
         .cinema-name{
           color: #191a1b;
-          font-size: 18PX;
+          font-size: 16px;
         }
         .cinema-address{
           color: #797d82;
-          font-size: 14PX;
-          margin-top: 5PX;
+          font-size: 12px;
+          margin-top: 5px;
         }
       }
       .cinema-ifo-rf{
         flex: 1;
         text-align: center;
         .rf-lowprice{
-          font-size: 16PX;
+          font-size: 14px;
           color: #ff5f16;
           i{
-            font-size: 14PX;
+            font-size: 12px;
           }
         }
         .upon{
-          font-size: 12PX;
+          font-size: 10px;
           color: #ff5f16;
         }
         .cinema-gpsAddress{
           display: block;
-          font-size: 14PX;
+          font-size: 12px;
           color: #797d82;
-          margin-top: 5PX;
+          margin-top: 5px;
         }
       }
 

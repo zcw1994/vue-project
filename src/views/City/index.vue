@@ -12,8 +12,10 @@
       </div>
     </div>
     <div class="bodySearch">
-      <input type="text" placeholder="输入城市名或拼音" class="searchInput">
-      <i class="iconfont icon-search"></i>
+      <input type="text" placeholder="输入城市名或拼音" class="searchInput" @click="focus" @keyup="seachCity" v-model="searchCotent">
+      <i class="search-icon iconfont icon-search"></i>
+      <i class="fault-icon iconfont icon-qingchu" v-if="isDelete" @click="deleteAll"></i>
+      <div class="cancelsearch" ref="showItem" @click="noneItem">取消</div>
     </div>
     <div class="main-cityList">
       <ul class="main-indexList">
@@ -32,7 +34,7 @@
               <li class="city-item-gprs"
                 v-for="(item, index) in filterHotCity"
                 :key="index"
-                @click="chgCityName(item)"
+                @click="changeCity(item)"
                 >
                 <div class="city-item-text"> {{ item }} </div>
               </li>
@@ -65,6 +67,22 @@
         </ul>
       </div>
     </div>
+    <div class="city-search-result" ref="searchCityList" style="">
+      <div class="city-search-result-list" v-if="isShow">
+        <ul>
+          <li
+            v-for="(item, index) in filterCurrectCity"
+            :key="index"
+            @click="changeCity(item)"
+            >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+      <div class="empty-result" v-else>
+        <img src="@/assets/unfind.png" alt="">
+        <p>没有找到匹配的城市</p></div>
+    </div>
   </div>
 </template>
 
@@ -72,7 +90,13 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
-
+  data () {
+    return {
+      searchCotent: '',
+      isShow: false,
+      isDelete: false
+    }
+  },
   // computed: {
 
   // cityData () {
@@ -129,10 +153,54 @@ export default {
     // ...mapState('ma', {
     //   'maName': (state) => state.name
     // }),
-    ...mapGetters(['filterCityData', 'filterLetters', 'filterHotCity'])
+    ...mapGetters(['filterCityData', 'filterLetters', 'filterHotCity']),
     // maName () {
     //   return this.$store.state.ma.name;
     // }
+    filterCityPy () {
+      let cityPy = [];
+      this.filterCityData.filter(item => {
+        item.list.filter(itemLIst => {
+          cityPy.push(itemLIst.pinyin);
+        })
+      });
+      return cityPy;
+    },
+    filterSearchCity () {
+      let seachCityName = [];
+      this.filterCityData.filter(item => {
+        item.list.filter(itemLIst => {
+          seachCityName.push(itemLIst.name);
+        })
+      });
+      return seachCityName;
+    },
+    filterCurrectCity () {
+      let curCityPy = [];
+      let curCityName = [];
+      if (this.searchCotent !== '') {
+        for (let i = 0; i < this.filterCityPy.length; i++) {
+          if (this.filterCityPy[i].indexOf(this.searchCotent) !== -1) {
+            curCityPy.push(this.filterCityPy[i]);
+          }
+        }
+        for (let j = 0; j < this.filterSearchCity.length; j++) {
+          if (this.filterSearchCity[j].indexOf(this.searchCotent) !== -1) {
+            curCityName.push(this.filterSearchCity[j]);
+          }
+        }
+      }
+      this.filterCityData.filter(item => {
+        item.list.filter(cityItem => {
+          for (let j = 0; j < curCityPy.length; j++) {
+            if (cityItem.pinyin.indexOf(curCityPy[j]) !== -1) {
+              curCityName.push(cityItem.name);
+            }
+          }
+        })
+      })
+      return curCityName;
+    }
   },
   methods: {
     // mapMUtation这个辅助函数 定义好，会给组件一个方法，方法名即为 定义好的 mutation
@@ -155,12 +223,42 @@ export default {
       document.documentElement.scrollTop = document.getElementById(
         py
       ).offsetTop;
-      alert(py)
     },
     changeCity (city) {
       // this.$store.commit('chgCityName', city);
       this.chgCityName(city);
       this.$router.back();
+    },
+    /* 搜索框点击事件（获取焦点事件） */
+    focus () {
+      this.$refs.showItem.style = 'display: inline-block'
+    },
+    /* 取消按钮的点击事件 */
+    noneItem () {
+      this.$refs.showItem.style = 'display: none';
+      this.$refs.searchCityList.style = 'display: none'
+    },
+    /* 搜索框的键盘按下事件 */
+    seachCity () {
+      this.$refs.searchCityList.style = 'display: block';
+      if (this.searchCotent !== '') {
+        this.isDelete = true;
+      } else {
+        this.isDelete = false;
+      };
+      this.$nextTick(() => {
+        // console.log(this.filterCurrectCity)
+        if (this.filterCurrectCity.length > 0) {
+          this.isShow = true;
+        } else {
+          this.isShow = false;
+        }
+      })
+    },
+    // 删除icon 的点击事件
+    deleteAll () {
+      this.searchCotent = '';
+      this.isDelete = false;
     }
   },
   created () {
@@ -168,7 +266,8 @@ export default {
     // this.$store.dispatch('getCityData');
     this.getCityData();
   }
-};
+
+}
 </script>
 
 <style lang="less">

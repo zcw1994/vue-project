@@ -1,15 +1,17 @@
 <template>
 
-  <div id="tabs-wrapper">
-    <div class="tabs" ref="box">
+  <div id="tabs-wrapper" ref="tabs">
+    <div class="tabs" >
       <ul class="tabs-nav">
-        <router-link to="/films/nowPlaying" tag="li"  active-class="tabs-active">
+        <router-link to="/films/nowPlaying" tag="li" @click.native="currentChange(0)"
+        data-num='0'
+        active-class="tabs-active">
           <span>正在热映</span>
         </router-link>
-        <router-link to="/films/comingSoon" tag="li" active-class="tabs-active">
+        <router-link to="/films/comingSoon" tag="li" @click.native="currentChange(1)" active-class="tabs-active">
           <span>即将上映</span>
         </router-link>
-        <div class="tab-ink-wrapper" style="transform: translate3d(0%, 0px, 0px)">
+        <div class="tab-ink-wrapper" style="transform: translate3d(0%, 0px, 0px)" ref="move">
           <span class="tab-ink" style="width: 50px;">
           </span>
         </div>
@@ -23,9 +25,29 @@
 <script>
 export default {
 
+  methods: {
+    currentChange (index) {
+      console.log(index);
+      if (index === 0) {
+        // console.log(this.$refs.move)
+        this.$refs.move.style = 'transform: translate3d(0%, 0px, 0px)'
+      } else {
+        this.$refs.move.style = 'transform: translate3d(100%, 0px, 0px)'
+      }
+    },
+    handleTabScroll () {
+      var scrollTop = document.documentElement.scrollTop;
+      if (scrollTop >= this.$store.state.tabsTop) {
+        this.$refs.tabs.style = 'position: fixed; top: 0.44rem';
+      } else {
+        this.$refs.tabs.style = 'position: relative';
+      }
+    }
+  },
   mounted () {
+    this.$store.state.tabsTop = this.$refs.tabs.offsetTop;
+    window.addEventListener('scroll', this.handleTabScroll, true);
   }
-
 }
 </script>
 
@@ -34,6 +56,7 @@ export default {
 #tabs-wrapper{
   width: 100%;
   background: #ffffff;
+  z-index: 3000;
   .tabs{
     position: relative;
     height: 49px;

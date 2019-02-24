@@ -39,27 +39,42 @@
   /* 搜索城市框 */
   .bodySearch {
     height: 50px;
+    width: 3.75rem;
     padding: 10px 15px;
     background: #f4f4f4;
-    width: 3.75rem;
     position: fixed;
     top: 44px;
     z-index: 2000;
     box-sizing: border-box;
+    display: flex;
     .searchInput {
       height: 30px;
-      width: 100%;
+      flex: 1;
       font-size: 12px;
       padding-left: 25px;
       border: 0px;
       box-sizing: border-box;
       position: relative;
     }
-    i {
+    .search-icon {
       font-size: 18px;
       position: absolute;
       top: 14px;
       left: 18px;
+    }
+    .fault-icon{
+      position: absolute;
+      top: 18px;
+      left: 294px;
+      color: #bdc0c5;
+      font-size: 14px;
+    }
+    .cancelsearch{
+      width: 42px;
+      display: none;
+      font-size: 14px;
+      line-height: 30px;
+      text-align: right;
     }
   }
   /* 城市主要内容 */
@@ -143,27 +158,68 @@
         }
       }
     }
-  }
-  /* 城市首字母导航 */
-  .mint-indexlist-nav {
-    flex: 1;
-    position: fixed;
-    margin-left: 370px;
-    z-index: 1999;
-    width: 18px;
-    height: 100%;
-    background: #ffffff;
-    .mint-indexlist-navlist {
-      display: flex;
-      flex-flow: column;
-      align-items: center;
+
+    /* 城市首字母导航 */
+    .mint-indexlist-nav {
+      flex: 1;
+      position: fixed;
+      margin-left: 356px;
+      z-index: 1000;
+      width: 18px;
       height: 100%;
-      padding-top: 50px;
-      .mint-indexlist-navitem {
-        font-size: 12px;
-        padding: 0 6px;
+      background: #ffffff;
+      .mint-indexlist-navlist {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        height: 100%;
+        padding-top: 50px;
+        .mint-indexlist-navitem {
+          font-size: 12px;
+          padding: 0 6px;
+          color: #191a1b;
+          margin: 3px 0;
+        }
+      }
+    }
+  }
+  /* 搜索城市列表 */
+  .city-search-result{
+    display: none;
+    z-index: 1999;
+    position: fixed;
+    top: 44px;
+    left: 0;
+    background-color: #fff;
+    height: calc(100vh - 49px);
+    width: 100vw;
+    overflow-y: auto;
+    ul {
+      position: relative;
+      padding-left: 15px;
+      padding-top: 49px;
+      li {
+        height: 44px;
+        position: relative;
+        line-height: 44px;
         color: #191a1b;
-        margin: 3px 0;
+        font-size: 13px;
+        border-bottom: 1px solid #f4f4f4
+      }
+    }
+    .empty-result{
+      position: absolute;
+      top: 107px;
+      width: 100%;
+      text-align: center;
+      img{
+        width: 90px;
+        margin: auto;
+      }
+      p{
+        color: #bdc0c5;
+        font-size: 14px;
+        margin: 0;
       }
     }
   }

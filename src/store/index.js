@@ -15,7 +15,9 @@ let store = new Vuex.Store({
     // 当前定位或需要切换的城市
     curCityName: '',
     // 城市列表数据
-    cityData: []
+    cityData: [],
+    // tab的高度
+    tabsTop: ''
   },
   /**
    * 是对state 中的 数据进行 二次处理 并返回相应数据的 一个属性 类似于vue 中的computed 计算属性
