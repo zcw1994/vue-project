@@ -2,7 +2,7 @@
   <div>
     <div class="swiper-container header-play">
       <div class="swiper-wrapper">
-        <a href="javascript:;" class="swiper-slide" v-for="item in bannerList" :key="item._id">
+        <a href="javascript:;" class="swiper-slide" v-for="item in bannerList" :key="item.bannerId">
           <img :src="item.imgUrl" >
         </a>
       </div>
@@ -42,25 +42,28 @@ export default {
   },
   created () {
     // 调用 axios 的 get 方法  调用nodejs项目 中数据库给的的接口数据
-    axios.get('http://localhost:3000/banner/search', {
-      params: {
-        pageSize: 10
+    axios.get('/api/gateway?type=2&cityId=440100&k=4680080', {
+      headers: {
+        // 需要配置 请求头 (网站需要一些特定的请求头才能访问)
+        'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
+        'X-Host': 'mall.cfg.common-banner'
       }
     }).then((res) => {
-      // console.log(res);
+      console.log(res);
       let data = res.data;
+      if (data.status === 0) {
+        this.bannerList = data.data
+      } else {
 
-      this.bannerList = data.data
+      }
 
       // 数据更新之后，在更新实例swiper 方法
       this.$nextTick(() => {
         this.initSwiter();
       })
+    }).catch(error => {
+      console.log(error.msg)
     })
-  },
-
-  // 需要在挂载文件后才能实例化swiper
-  mounted () {
   }
 }
 </script>

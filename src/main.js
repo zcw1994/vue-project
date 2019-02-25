@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/index'
 import './assets/styles/reset.less'
 import 'nprogress/nprogress.css'
+import './mockData'
 
 // 开发模式的小提示 是否显示
 Vue.config.productionTip = false
