@@ -1,17 +1,19 @@
 <template>
 
-  <div id="tabs-wrapper" ref="tabs">
+  <div id="tabs-wrapper" ref="filmTabs">
     <div class="tabs" >
       <ul class="tabs-nav">
-        <router-link to="/films/nowPlaying" tag="li" @click.native="currentChange(0)"
-        data-num='0'
-        active-class="tabs-active">
+        <li  @click="go('nowPlaying')" :class="{'tabs-active': filmType === 'nowPlaying'}"
+
+        >
           <span>正在热映</span>
-        </router-link>
-        <router-link to="/films/comingSoon" tag="li" @click.native="currentChange(1)" active-class="tabs-active">
+        </li>
+        <li  @click="go('comingSoon')"
+          :class="{'tabs-active': filmType === 'comingSoon'}"
+          >
           <span>即将上映</span>
-        </router-link>
-        <div class="tab-ink-wrapper" style="transform: translate3d(0%, 0px, 0px)" ref="move">
+        </li>
+        <div class="tab-ink-wrapper" :style="[{width: '50%'},{transform: filmType === 'nowPlaying' ? 'translate3d(0%,0,0)' : 'translate3d(100%,0,0)'}]" >
           <span class="tab-ink" style="width: 50px;">
           </span>
         </div>
@@ -23,29 +25,42 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
 
   methods: {
+    ...mapMutations([
+      'chgFilmType'
+    ]),
+    go (name) {
+      this.chgFilmType(name);
+      this.$router.replace('/films/' + name)
+    },
     currentChange (index) {
-      console.log(index);
-      if (index === 0) {
-        // console.log(this.$refs.move)
+      // console.log(index);
+      this.showNum = index;
+      if (this.showNum === 0) {
         this.$refs.move.style = 'transform: translate3d(0%, 0px, 0px)'
-      } else {
+      } else if (this.showNum === 1) {
         this.$refs.move.style = 'transform: translate3d(100%, 0px, 0px)'
       }
     },
     handleTabScroll () {
       var scrollTop = document.documentElement.scrollTop;
       if (scrollTop >= this.$store.state.tabsTop) {
-        this.$refs.tabs.style = 'position: fixed; top: 0.44rem';
+        this.$refs.filmTabs.style = 'position: fixed; top: 0.44rem';
       } else {
-        this.$refs.tabs.style = 'position: relative';
+        this.$refs.filmTabs.style = 'position: relative';
       }
     }
   },
+  computed: {
+    ...mapState([
+      'filmType'
+    ])
+  },
   mounted () {
-    this.$store.state.tabsTop = this.$refs.tabs.offsetTop;
+    this.$store.state.tabsTop = this.$refs.filmTabs.offsetTop;
     window.addEventListener('scroll', this.handleTabScroll, true);
   }
 }
@@ -74,11 +89,11 @@ export default {
         text-align: center;
         font-size: 16px;
         cursor: pointer;
-        &.tabs-active{
+      }
+      // 选中 tab 的高亮 选择
+      .tabs-active{
           color: #ff5f16;
         }
-      }
-
       /* 下划线样式 */
       .tab-ink-wrapper{
         margin: auto;

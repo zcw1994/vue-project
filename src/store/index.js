@@ -17,7 +17,9 @@ let store = new Vuex.Store({
     // 城市列表数据
     cityData: [],
     // tab的高度
-    tabsTop: ''
+    tabsTop: '',
+    // 首页 tab 控制切换 动画的变量
+    filmType: 'nowPlaying'
   },
   /**
    * 是对state 中的 数据进行 二次处理 并返回相应数据的 一个属性 类似于vue 中的computed 计算属性
@@ -92,6 +94,9 @@ let store = new Vuex.Store({
      */
     chgCityData (state, payload) {
       state.cityData = payload.data.cities
+    },
+    chgFilmType (state, payload) {
+      state.filmType = payload
     }
   },
 

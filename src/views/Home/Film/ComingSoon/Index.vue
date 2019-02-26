@@ -1,24 +1,24 @@
 <template>
   <div class="film-lists">
       <ul>
-        <li class="nowFilmShow" v-for="item in bannerList" :key="item._id">
+        <li class="nowFilmShow" v-for="item in bannerList" :key="item.filmId">
           <a href="javascript:;" class="filmItem">
             <div class="filmImg">
-              <img :src="item.imgUrl" alt="">
+              <img :src="item.poster" alt="">
             </div>
             <div class="filmDetail">
               <div class="filmName">
                 <span class="nowFlimName">{{item.name}}</span>
-                <span class="filmType">{{ item.type }} </span>
+                <span class="filmType">{{ item.filmType.name }} </span>
               </div>
               <div class="filmGrade">
 
               </div>
               <div class="filmActors">
-                主演：{{ item.actors }}
+                主演：{{ item.actors ? item.actors.map(itemList => itemList.name).join(' ') : '暂无主演' }}
               </div>
               <div class="filmPlace">
-                上映日期：{{ item.time }}
+                上映日期：{{ new Date( item.premiereAt ).toLocaleString() }}
               </div>
             </div>
             <div class="doFilm">
@@ -35,15 +35,48 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      bannerList: []
+      bannerList: [],
+      pageNum: 1,
+      pageSize: 10,
+      maxPage: '',
+      total: ''
+    }
+  },
+  methods: {
+    getFutureData () {
+      axios.get('https://m.maizuo.com/gateway', {
+        headers: {
+          'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
+          'X-Host': 'mall.film-ticket.film.list'
+        },
+        params: {
+          cityId: 440100,
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+          type: 2,
+          k: 2386867
+        }
+      }).then(res => {
+        // console.log(res.data);
+        let data = res.data;
+        console.log(data);
+        if (data.status === 0) {
+          this.bannerList = data.data.films;
+        } else {
+          console.log('网络有误，请稍后重试');
+        }
+      }).catch(error => {
+        console.log(error.msg);
+      })
+    }
+  },
+  computed: {
+    getDate () {
+      return 1
     }
   },
   created () {
-    axios.get('http://localhost:3000/newFilms/search').then(res => {
-      // console.log(res);
-      let data = res.data;
-      this.bannerList = data.data;
-    })
+    this.getFutureData();
   }
 }
 </script>

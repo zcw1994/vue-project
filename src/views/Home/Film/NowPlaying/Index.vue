@@ -1,24 +1,25 @@
 <template>
   <div class="film-lists">
     <ul>
-      <li class="nowFilmShow" v-for="item in bannerList" :key="item._id">
+      <li class="nowFilmShow" v-for="item in filmsList" :key="item.filmId">
         <a href="javascript:;" class="filmItem">
           <div class="filmImg">
-            <img :src="item.imgUrl" alt="">
+            <img :src="item.poster" alt="">
           </div>
           <div class="filmDetail">
             <div class="filmName">
               <span class="nowFlimName">{{item.name}}</span>
-              <span class="filmType">{{item.type}}</span>
+              <span class="filmType">{{item.filmType && item.filmType.name}}</span>
             </div>
             <div class="filmGrade">
-              <span class="zcw-label">观众评分</span><span class="labelGrade">{{item.grade}}</span>
+              <span class="zcw-label">观众评分</span><span class="labelGrade">{{item.grade && item.grade}}</span>
             </div>
             <div class="filmActors">
-              主演：{{item.actors}}
+              <!--   -->
+              主演：{{ item.actors ? item.actors.map(itemList => itemList.name).join(' ') : '暂无主演'}}
             </div>
             <div class="filmPlace">
-              {{item.place}} | {{item.time}}
+              {{item.nation}} | {{item.runtime}}
             </div>
           </div>
           <div class="doFilm">
@@ -28,23 +29,67 @@
         </a>
       </li>
     </ul>
+    <div class="more-films" v-if="pageNum >= pages"> 别点了，我也是有底线的 </div>
+    <button class="more-films" @click="loadMore" v-else >点击加载更多 ▽ </button>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+
 export default {
   data () {
     return {
-      bannerList: []
+      filmsList: [],
+      pageNum: 1,
+      pageSize: 10,
+      maxPage: '', // 数据加载一共是几页
+      totalNum: ''
+    }
+  },
+  methods: {
+    getFilmData () {
+      axios.get('https://m.maizuo.com/gateway', {
+        headers: {
+          'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
+          'X-Host': 'mall.film-ticket.film.list'
+        },
+        params: {
+          'cityId': '440100',
+          'pageNum': this.pageNum,
+          'pageSize': this.pageSize,
+          'type': '1',
+          'k': '4484354'
+        }
+      }).then(res => {
+      // console.log(res);
+        let data = res.data;
+        // console.log(data);
+        if (data.status === 0) {
+          // this.filmsList = data.data.films;
+          // 要做点击刷新加载数据 ，这里需要将数据进行追加
+          this.filmsList = this.filmsList.concat(data.data.films)
+          this.totalNum = data.data.total;
+        } else {
+          console.log('网络异常，请稍后重试')
+        }
+      }).catch(error => {
+        console.log(error.msg);
+      })
+    },
+    loadMore () {
+      this.pageNum++;
+      this.getFilmData();
+    }
+  },
+  computed: {
+    // 计算 maxPage 一共有几页
+    pages () {
+      return Math.ceil(this.totalNum / this.pageSize);
     }
   },
   created () {
-    axios.get('http://localhost:3000/films/search').then(res => {
-      // console.log(res);
-      let data = res.data;
-      this.bannerList = data.data;
-    })
+    this.getFilmData();
   }
 }
 </script>
@@ -147,9 +192,14 @@ export default {
     }
   }
 }
-.buyFilm:hover{
-  background: #ff5f16;
-  color: #ffffff;
+.more-films{
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  font-size: 16px;
+  color: #191a1b;
+  background: #f4f4f4;
+  text-align: center;
 }
 
 </style>
