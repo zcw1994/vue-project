@@ -55,7 +55,7 @@
     width: 3.75rem;
     margin: 0 auto;
     height: 46px;
-    z-index: 666;
+    z-index: 3000;
     .film-footer{
       background: #ffffff;
       width: 100%;

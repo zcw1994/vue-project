@@ -48,9 +48,13 @@ export default {
     handleTabScroll () {
       var scrollTop = document.documentElement.scrollTop;
       if (scrollTop >= this.$store.state.tabsTop) {
-        this.$refs.filmTabs.style = 'position: fixed; top: 0.44rem';
+        this.$nextTick(() => {
+          this.$refs.filmTabs.style = 'position: fixed; top: 0.44rem'
+        })
       } else {
-        this.$refs.filmTabs.style = 'position: relative';
+        this.$nextTick(() => {
+          this.$refs.filmTabs.style = 'position: relative'
+        })
       }
     }
   },
@@ -61,7 +65,10 @@ export default {
   },
   mounted () {
     this.$store.state.tabsTop = this.$refs.filmTabs.offsetTop;
-    window.addEventListener('scroll', this.handleTabScroll, true);
+    window.addEventListener('scroll', this.handleTabScroll);
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.handleTabScroll)
   }
 }
 </script>
