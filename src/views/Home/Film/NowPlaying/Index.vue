@@ -1,7 +1,9 @@
 <template>
   <div class="film-lists">
     <ul>
-      <li class="nowFilmShow" v-for="item in filmsList" :key="item.filmId">
+      <li class="nowFilmShow" v-for="item in filmsList" :key="item.filmId"
+        @click="toDetail(item)"
+        >
         <a href="javascript:;" class="filmItem">
           <div class="filmImg">
             <img :src="item.poster" alt="">
@@ -36,7 +38,7 @@
 
 <script>
 import axios from 'axios'
-
+import { mapMutations } from 'vuex';
 export default {
   data () {
     return {
@@ -80,7 +82,15 @@ export default {
     loadMore () {
       this.pageNum++;
       this.getFilmData();
-    }
+    },
+    toDetail (film) {
+      this.chgFilmId(film.filmId);
+      this.$router.push('/detail/' + film.filmId)
+    },
+    ...mapMutations([
+      'chgFilmId'
+    ])
+
   },
   computed: {
     // 计算 maxPage 一共有几页

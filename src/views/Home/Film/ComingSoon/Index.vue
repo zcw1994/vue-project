@@ -1,7 +1,7 @@
 <template>
   <div class="film-lists">
       <ul>
-        <li class="nowFilmShow" v-for="item in bannerList" :key="item.filmId" @click="filmDetail(item)">
+        <li class="nowFilmShow" v-for="item in bannerList" :key="item.filmId" @click="toDetail(item)">
           <a href="javascript:;" class="filmItem">
             <div class="filmImg">
               <img :src="item.poster" alt="">
@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { mapMutations } from 'vuex';
 export default {
   data () {
     return {
@@ -61,7 +62,7 @@ export default {
       }).then(res => {
         // console.log(res.data);
         let data = res.data;
-        console.log(data);
+        // console.log(data);
         if (data.status === 0) {
           this.bannerList = this.bannerList.concat(data.data.films);
           this.total = data.data.total;
@@ -81,29 +82,13 @@ export default {
       return new Date(val).getFullYear() + '年' + (new Date(val).getMonth() + 1) + '月' + new Date(val).getDate() + '日'
     },
     // 跳转详情页操作
-    filmDetail (film) {
-      axios.get('https://m.maizuo.com/gateway', {
-        headers: {
-          'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
-          'X-Host': 'mall.film-ticket.film.info'
-        },
-        params: {
-          filmId: film.filmId,
-          k: '5175207'
-        }
-      }).then(Response => {
-        let res = Response.data;
-        if (res.status === 0) {
-          // console.log(res)
-          // console.log(res.data.film)
-          this.$store.commit('chgFilmDetail', res.data.film)
-        } else {
-          console.log('网络异常，请稍后再试')
-        }
-      }).catch(error => {
-        console.log(error.msg)
-      })
-    }
+    toDetail (film) {
+      this.chgFilmId(film.filmId);
+      this.$router.push('/detail/' + film.filmId)
+    },
+    ...mapMutations([
+      'chgFilmId'
+    ])
   },
   computed: {
     // 计算总共有几页数据

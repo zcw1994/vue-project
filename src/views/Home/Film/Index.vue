@@ -18,7 +18,13 @@
     </div>
     <mz-banner></mz-banner>
     <mz-tabs></mz-tabs>
-    <router-view></router-view>
+    <transition
+      appear
+      mode="out-in"
+      enter-active-class="animated bounceInUp"
+      leave-active-class="animated bounceOutDown">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -41,7 +47,7 @@ export default {
     mzTabs
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll, true)
+    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleScroll () {

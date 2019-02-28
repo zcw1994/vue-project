@@ -2,8 +2,8 @@
   <transition
     appear
     mode="out-in"
-    enter-active-class="animated fadeInUp"
-    leave-active-class="animated fadeOutDown">
+    enter-active-class="animated bounceInUp"
+    leave-active-class="animated bounceOutDown">
     <router-view></router-view>
   </transition>
 </template>

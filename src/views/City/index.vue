@@ -214,7 +214,7 @@ export default {
   created () {
     // this.getCityData();
     // this.$store.dispatch('getCityData');
-    console.log(this.filterCurrectCity)
+    // console.log(this.filterCurrectCity)
     this.getCityData();
   }
 

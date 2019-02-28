@@ -32,7 +32,7 @@
     <div id="cinemas-list-wrapper">
       <ul class="cinemas-list">
         <li class="cinema-list-item"
-          v-for="item in cinemaList"
+          v-for="item in cinemaData"
           :key="item.cinemaId"
           >
           <a href="javascript:;">
@@ -61,12 +61,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import axios from 'axios';
 export default {
   data () {
     return {
-      cinemaList: []
     }
   },
   methods: {
@@ -84,19 +83,23 @@ export default {
         console.log(res.data);
         let data = res.data;
         if (data.status === 0) {
-          this.cinemaList = data.data.cinemas;
+          this.chgCinemaData(data.data.cinemas);
         } else {
           alert('网络有误，请稍后重试');
         }
       }).catch(error => {
         console.log(error.msg);
       })
-    }
+    },
+    ...mapMutations([
+      'chgCinemaData'
+    ])
   },
   computed: {
     ...mapState([
       'curCityName',
-      'curCityId'
+      'curCityId',
+      'cinemaData'
     ])
   },
   created () {

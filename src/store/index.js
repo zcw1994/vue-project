@@ -15,7 +15,7 @@ let store = new Vuex.Store({
     // 当前定位或需要切换的城市
     curCityName: '',
     // 当前 点击城市的 id
-    curCityId: '',
+    curCityId: '440300',
     // 城市列表数据
     cityData: [],
     // tab的高度
@@ -23,7 +23,9 @@ let store = new Vuex.Store({
     // 首页 tab 控制切换 动画的变量
     filmType: 'nowPlaying',
     // 电影的详情数据
-    filmDetailData: []
+    detailFilmId: '',
+    /* 影院的数据 */
+    cinemaData: []
   },
   /**
    * 是对state 中的 数据进行 二次处理 并返回相应数据的 一个属性 类似于vue 中的computed 计算属性
@@ -88,7 +90,7 @@ let store = new Vuex.Store({
      */
     chgCityName (state, payload) {
       state.curCityName = payload.name;
-      if (payload.cityId) {
+      if (payload.cityId && payload.cityId !== '') {
         state.curCityId = payload.cityId;
       } else {
         state.curCityId = '440300';
@@ -105,8 +107,13 @@ let store = new Vuex.Store({
     chgFilmType (state, payload) {
       state.filmType = payload
     },
-    chgFilmDetail (state, payload) {
-      state.filmDetailData = payload
+    /* 影片Id */
+    chgFilmId (state, payload) {
+      state.detailFilmId = payload
+    },
+    /* 影院数据更改 */
+    chgCinemaData (state, payload) {
+      state.cinemaData = payload;
     }
   },
 
