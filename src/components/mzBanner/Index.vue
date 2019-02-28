@@ -49,7 +49,7 @@ export default {
         'X-Host': 'mall.cfg.common-banner'
       }
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       let data = res.data;
       if (data.status === 0) {
         this.bannerList = data.data

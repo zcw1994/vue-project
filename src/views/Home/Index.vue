@@ -1,7 +1,13 @@
 // 一级路由
 <template>
   <div>
-    <router-view></router-view>
+    <transition
+      appear
+      mode="out-in"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown">
+      <router-view></router-view>
+    </transition>
     <Footer></Footer>
   </div>
 </template>

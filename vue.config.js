@@ -16,5 +16,7 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  // 如果项目不是在web服务 根目录下的话 ，需要配置 pablicPath
+  publicPath: '/mz/'
 }

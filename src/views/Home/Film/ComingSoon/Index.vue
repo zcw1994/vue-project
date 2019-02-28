@@ -1,7 +1,7 @@
 <template>
   <div class="film-lists">
       <ul>
-        <li class="nowFilmShow" v-for="item in bannerList" :key="item.filmId">
+        <li class="nowFilmShow" v-for="item in bannerList" :key="item.filmId" @click="filmDetail(item)">
           <a href="javascript:;" class="filmItem">
             <div class="filmImg">
               <img :src="item.poster" alt="">
@@ -18,7 +18,7 @@
                 主演：{{ item.actors ? item.actors.map(itemList => itemList.name).join(' ') : '暂无主演' }}
               </div>
               <div class="filmPlace">
-                上映日期：{{ new Date( item.premiereAt ).toLocaleString() }}
+                上映日期：{{   getDateStyle(item.premiereAt *1000)  }}
               </div>
             </div>
             <div class="doFilm">
@@ -27,6 +27,8 @@
           </a>
         </li>
       </ul>
+      <div class="more-films" v-if="pageNum >= pages"> 别点了，我也是有底线的 </div>
+    <button class="more-films" @click="loadMore" v-else >点击加载更多 ▽ </button>
   </div>
 </template>
 
@@ -61,18 +63,52 @@ export default {
         let data = res.data;
         console.log(data);
         if (data.status === 0) {
-          this.bannerList = data.data.films;
+          this.bannerList = this.bannerList.concat(data.data.films);
+          this.total = data.data.total;
         } else {
           console.log('网络有误，请稍后重试');
         }
       }).catch(error => {
         console.log(error.msg);
       })
+    },
+    loadMore () {
+      this.pageNum++;
+      this.getFutureData();
+    },
+    // 修改时间搓 所得到的的时间格式
+    getDateStyle (val) {
+      return new Date(val).getFullYear() + '年' + (new Date(val).getMonth() + 1) + '月' + new Date(val).getDate() + '日'
+    },
+    // 跳转详情页操作
+    filmDetail (film) {
+      axios.get('https://m.maizuo.com/gateway', {
+        headers: {
+          'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
+          'X-Host': 'mall.film-ticket.film.info'
+        },
+        params: {
+          filmId: film.filmId,
+          k: '5175207'
+        }
+      }).then(Response => {
+        let res = Response.data;
+        if (res.status === 0) {
+          // console.log(res)
+          // console.log(res.data.film)
+          this.$store.commit('chgFilmDetail', res.data.film)
+        } else {
+          console.log('网络异常，请稍后再试')
+        }
+      }).catch(error => {
+        console.log(error.msg)
+      })
     }
   },
   computed: {
-    getDate () {
-      return 1
+    // 计算总共有几页数据
+    pages () {
+      return Math.ceil(this.total / this.pageSize);
     }
   },
   created () {
@@ -179,9 +215,15 @@ export default {
     }
   }
 }
-.buyFilm:hover{
-  background: #ff5f16;
-  color: #ffffff;
+/* 加载更多按钮 */
+.more-films{
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  font-size: 16px;
+  color: #191a1b;
+  background: #f4f4f4;
+  text-align: center;
 }
 
 </style>

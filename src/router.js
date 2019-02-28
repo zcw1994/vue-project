@@ -32,7 +32,7 @@ let router = new VueRouter({
     {
       // 卖座卡页面
       path: '/card',
-      component: () => import('./views/City/index.vue')
+      component: () => import('./views/Card/Index.vue')
       // beforeEnter (to, from, next) {
       //   next(false);
       // }

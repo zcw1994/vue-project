@@ -31,220 +31,20 @@
     <!-- 影院详情列表 -->
     <div id="cinemas-list-wrapper">
       <ul class="cinemas-list">
-        <li class="cinema-list-item">
+        <li class="cinema-list-item"
+          v-for="item in cinemaList"
+          :key="item.cinemaId"
+          >
           <a href="javascript:;">
             <div class="cinema-ifo-lf">
-              <span class="cinema-name">英皇电影城（东海缤纷店） </span>
-              <span class="cinema-address">东海国际中心二期B区101之B1002号商铺</span>
+              <span class="cinema-name"> {{ item.name }} </span>
+              <span class="cinema-address"> {{ item.address }} </span>
             </div>
             <div class="cinema-ifo-rf">
               <div class="films-lowPrice">
                 <span class="rf-lowprice">
                   <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">英皇电影城（东海缤纷店） </span>
-              <span class="cinema-address">东海国际中心二期B区101之B1002号商铺</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">深圳中影国际影城欢乐海岸店 </span>
-              <span class="cinema-address">深圳市南山区白石路东8号欢乐海岸曲水湾2栋A区</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">深影国际影城佐阾虹湾店 </span>
-              <span class="cinema-address">深圳市梅林街道北环大道6098号绿景虹湾购物中心三楼（地铁梅景站A1出口）</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">深圳雅图数字影院(梅林店) </span>
-              <span class="cinema-address">福田区梅林一村9区一层103A（梅山街）</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">星美影商城（深圳福体店） </span>
-              <span class="cinema-address">广东省深圳市福田区福强路3030号福田体育公园负一层 </span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">深圳万众国际影城NEO店 </span>
-              <span class="cinema-address">深圳市福田区深南中路NEO大厦A座3楼</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">42</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">深圳中影今典电影城 </span>
-              <span class="cinema-address">福田区农林路69号深国投广场三楼</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">54</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">江湖影院侨香店 </span>
-              <span class="cinema-address">广东省深圳市福田区香蜜湖街道安托山七路海阔商业服务体L4-1</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">40</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">星美影商城（深圳京基IMAX店） </span>
-              <span class="cinema-address">深圳市福田区滨河大道9289号KKONE购物中心F4 </span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">47</span>
-                </span>
-                <span class="upon">起</span>
-              </div>
-              <span class="cinema-gpsAddress">
-                距离未知
-              </span>
-            </div>
-          </a>
-        </li>
-        <li class="cinema-list-item">
-          <a href="javascript:;">
-            <div class="cinema-ifo-lf">
-              <span class="cinema-name">中影国际影院（深圳深国投店） </span>
-              <span class="cinema-address">深圳市福田区侨香路嘉信茂购物中心三层</span>
-            </div>
-            <div class="cinema-ifo-rf">
-              <div class="films-lowPrice">
-                <span class="rf-lowprice">
-                  <i class="iconfont icon-jiage"></i>
-                  <span class="interge">56</span>
+                  <span class="interge"> {{ item.lowPrice/100 }} </span>
                 </span>
                 <span class="upon">起</span>
               </div>
@@ -261,12 +61,46 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import axios from 'axios';
 export default {
+  data () {
+    return {
+      cinemaList: []
+    }
+  },
+  methods: {
+    getCiemaData () {
+      axios.get('https://m.maizuo.com/gateway', {
+        headers: {
+          'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
+          'X-Host': 'mall.film-ticket.cinema.list'
+        },
+        params: {
+          cityId: this.$store.state.curCityId,
+          k: '2462978'
+        }
+      }).then(res => {
+        console.log(res.data);
+        let data = res.data;
+        if (data.status === 0) {
+          this.cinemaList = data.data.cinemas;
+        } else {
+          alert('网络有误，请稍后重试');
+        }
+      }).catch(error => {
+        console.log(error.msg);
+      })
+    }
+  },
   computed: {
     ...mapState([
-      'curCityName'
+      'curCityName',
+      'curCityId'
     ])
+  },
+  created () {
+    this.getCiemaData();
   }
 }
 </script>
@@ -276,7 +110,7 @@ export default {
 /* 影院头部 */
 #header-wrapper{
   background: #ffffff;
-  height: 44PX;
+  height: 44px;
   position: fixed;
   top: 0;
   width: 3.75rem;

@@ -14,12 +14,16 @@ let store = new Vuex.Store({
   state: {
     // 当前定位或需要切换的城市
     curCityName: '',
+    // 当前 点击城市的 id
+    curCityId: '',
     // 城市列表数据
     cityData: [],
     // tab的高度
     tabsTop: '',
     // 首页 tab 控制切换 动画的变量
-    filmType: 'nowPlaying'
+    filmType: 'nowPlaying',
+    // 电影的详情数据
+    filmDetailData: []
   },
   /**
    * 是对state 中的 数据进行 二次处理 并返回相应数据的 一个属性 类似于vue 中的computed 计算属性
@@ -73,9 +77,7 @@ let store = new Vuex.Store({
           }
         })
       });
-      return HotCityList.map(item => {
-        return item.name
-      })
+      return HotCityList
     }
   },
   mutations: {
@@ -85,7 +87,12 @@ let store = new Vuex.Store({
      * @param {Object}  传递过来的参数
      */
     chgCityName (state, payload) {
-      state.curCityName = payload;
+      state.curCityName = payload.name;
+      if (payload.cityId) {
+        state.curCityId = payload.cityId;
+      } else {
+        state.curCityId = '440300';
+      }
     },
     /**
      *  修改 cityData
@@ -97,6 +104,9 @@ let store = new Vuex.Store({
     },
     chgFilmType (state, payload) {
       state.filmType = payload
+    },
+    chgFilmDetail (state, payload) {
+      state.filmDetailData = payload
     }
   },
 
@@ -107,13 +117,18 @@ let store = new Vuex.Store({
       /* eslint-disable   */
       var myCity = new BMap.LocalCity();
       myCity.get(result => {
-        commit('chgCityName', result.name);
+        commit('chgCityName', result);
       })
     },
     /* eslint-enable   */
     getCityData ({ commit, state, getters }) {
-      axios.get('./json/city.json').then(res => {
-        // console.log(res.data);
+      axios.get('https://m.maizuo.com/gateway?k=3700223', {
+        headers: {
+          'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
+          'X-Host': 'mall.film-ticket.city.list'
+        }
+      }).then(res => {
+        console.log(res.data);
         let data = res.data;
         if (data.status === 0) {
           // this.cityData = data.data.cities;

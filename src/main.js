@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store/index'
-import './assets/styles/reset.less'
-import 'nprogress/nprogress.css'
-import './mockData'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store/index';
+import './assets/styles/reset.less';
+import 'nprogress/nprogress.css';
+import 'animate.css';
 
 // 开发模式的小提示 是否显示
 Vue.config.productionTip = false

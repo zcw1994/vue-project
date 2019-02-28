@@ -22,7 +22,7 @@ export default {
   methods: {
     handleLogin () {
       // 做登录
-      axios.post('http://129.28.111.139/user/login', {
+      axios.post('http://129.28.111.139:3000/user/login', {
         userName: this.username,
         password: this.password
       }).then((res) => {

@@ -36,7 +36,7 @@
                 :key="index"
                 @click="changeCity(item)"
                 >
-                <div class="city-item-text"> {{ item }} </div>
+                <div class="city-item-text"> {{ item.name }} </div>
               </li>
             </ul>
           </div>
@@ -50,8 +50,8 @@
         >
           <p class="main-indexsection-index">{{item.py}}</p>
           <ul>
-            <li class="city-item-detail-white" v-for="city in item.list" :key="city.cityId">
-              <div class="city-item-text" @click="changeCity(city.name)">{{ city.name }}</div>
+            <li class="city-item-detail-white" v-for="city in item.list" :key="city.cityId" :cityId="city.cityId">
+              <div class="city-item-text" @click="changeCity(city)">{{ city.name }}</div>
             </li>
           </ul>
         </li>
@@ -75,7 +75,7 @@
             :key="index"
             @click="changeCity(item)"
             >
-            {{ item }}
+            {{ item.name }}
           </li>
         </ul>
       </div>
@@ -97,56 +97,6 @@ export default {
       isDelete: false
     }
   },
-  // computed: {
-
-  // cityData () {
-  //   return this.$store.state.cityData;
-  // },
-  // curCityName () {
-  //   return this.$store.state.curCityName;
-  // },
-  // filterCityData () {
-  //   return this.$store.getters.filterCityDate
-  // },
-  // filterLetters () {
-  //   return this.$store.getters.filterLetters
-  // }
-
-  // filterCityData () {
-  //   let hash = {}; // 用来筛选 数据是否存在
-  //   let i = 0; // 一个变量
-  //   let res = []; // 实际 存放数据的数组
-
-  //   this.cityData.forEach(item => {
-  //     // 1.得到当前循环的首字母
-  //     let firstLetter = item.pinyin.substr(0, 1).toUpperCase();
-  //     // 2 判断该首字母是否第一次出现
-
-  //     if (hash[firstLetter]) {
-  //       // 存在即已经出现过了
-  //       var index = hash[firstLetter] - 1;
-  //       res[index].list.push(item); // 存在了就存放到数组中该字母对象的list数组中
-  //     } else {
-  //       // 不存在
-  //       hash[firstLetter] = ++i;// 如果不写++i,而写i++的话，第一次一个字母没出现过，走到else判断，然后这个字母的值为0，此时这个字母已经出现并存放到hash对象中，下次继续出现时，走到if判断中，hash[这个字母] = 0，还是false，又判断不存在，所以是不 ok的
-  //       let obj = {};
-  //       obj.py = firstLetter;// 定义一个首字母的键
-  //       obj.list = [item];// 给这个对象定义一个数组，存放这个第一次出现的item数据
-  //       res.push(obj)// 再将这个对象添加到数组中
-  //     }
-  //   });
-  //   let temp = res.sort((a, b) => { // 对得到的数组进行再次排序，按照ABCD 的升序进行 ，因此sort 里面要用到 这个字母的 ASCILL值
-  //     return a.py.charCodeAt() - b.py.charCodeAt();
-  //   })
-  //   return temp;
-  // },
-  // filterLetters () {
-  //   return this.filterCityData.map(item => {
-  //     return item.py
-  //   })
-  // }
-
-  // },
   computed: {
     // 辅助函数
     ...mapState(['cityData', 'curCityName']),
@@ -194,7 +144,7 @@ export default {
         item.list.filter(cityItem => {
           for (let j = 0; j < curCityPy.length; j++) {
             if (cityItem.pinyin.indexOf(curCityPy[j]) !== -1) {
-              curCityName.push(cityItem.name);
+              curCityName.push(cityItem);
             }
           }
         })
@@ -264,6 +214,7 @@ export default {
   created () {
     // this.getCityData();
     // this.$store.dispatch('getCityData');
+    console.log(this.filterCurrectCity)
     this.getCityData();
   }
 
