@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import { mapMutations } from 'vuex';
 export default {
   data () {
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     getFutureData () {
-      axios.get('https://m.maizuo.com/gateway', {
+      this.$http.get('https://m.maizuo.com/gateway', {
         headers: {
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"1.0.0","e":"154808291248812303321624"}',
           'X-Host': 'mall.film-ticket.film.list'

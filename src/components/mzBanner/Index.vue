@@ -53,8 +53,6 @@ export default {
       let data = res.data;
       if (data.status === 0) {
         this.bannerList = data.data
-      } else {
-
       }
 
       // 数据更新之后，在更新实例swiper 方法

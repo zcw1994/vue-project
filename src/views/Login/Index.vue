@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data () {
     return {
@@ -22,7 +22,7 @@ export default {
   methods: {
     handleLogin () {
       // 做登录
-      axios.post('http://129.28.111.139:3000/user/login', {
+      this.$http.post('/user/login', {
         userName: this.username,
         password: this.password
       }).then((res) => {
